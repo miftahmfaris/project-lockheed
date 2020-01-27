@@ -7,3 +7,8 @@
     justify-content: center;
     background-color: grey;
 }
+
+.signin-form {
+    display: flex;
+    justify-content: center;
+}

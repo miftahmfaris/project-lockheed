@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 import {
     Collapse,
     Navbar,
@@ -15,33 +15,74 @@ const Header = props => {
 
     const toggle = () => setIsOpen(!isOpen);
 
+    const [isLogin, setLogin] = useState({
+        status: JSON.parse(localStorage.getItem("status"))
+    });
+
+    const signOut = () => {
+        setLogin(prevState => {
+            return (prevState.status = false);
+        });
+
+        localStorage.setItem("status", false);
+    };
+
     return (
         <div>
             <Navbar color="light" light expand="md">
-                <NavbarBrand href="/">reactstrap</NavbarBrand>
+                <NavbarBrand tag={Link} to="/">
+                    miftahmfaris
+                </NavbarBrand>
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className="mr-auto" navbar>
                         <NavItem>
-                            <Link to="/">
-                                <NavLink>Home</NavLink>
-                            </Link>
+                            <NavLink tag={Link} to="/">
+                                Home
+                            </NavLink>
                         </NavItem>
                         <NavItem>
-                            <Link to="/profile">
-                                <NavLink>Profile</NavLink>
-                            </Link>
+                            <NavLink tag={Link} to="/profile">
+                                Profile
+                            </NavLink>
                         </NavItem>
                         <NavItem>
-                            <Link to="/class">
-                                <NavLink>Class Component</NavLink>
-                            </Link>
+                            <NavLink tag={Link} to="/class">
+                                Class Component
+                            </NavLink>
                         </NavItem>
                         <NavItem>
-                            <Link to="/function">
-                                <NavLink>Function Component</NavLink>
-                            </Link>
+                            <NavLink tag={Link} to="/function">
+                                Function Component
+                            </NavLink>
                         </NavItem>
+                        <NavItem>
+                            <NavLink tag={Link} to="/todolist">
+                                Todo List
+                            </NavLink>
+                        </NavItem>
+                    </Nav>
+                    <Nav className="mr-6" navbar>
+                        {isLogin.status ? (
+                            <NavItem>
+                                <NavLink tag={Link} to="/#" onClick={signOut}>
+                                    Sign Out
+                                </NavLink>
+                            </NavItem>
+                        ) : (
+                            <Fragment>
+                                <NavItem>
+                                    <NavLink tag={Link} to="/signin">
+                                        Sign In
+                                    </NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink tag={Link} to="/signup">
+                                        Sign Up
+                                    </NavLink>
+                                </NavItem>
+                            </Fragment>
+                        )}
                     </Nav>
                 </Collapse>
             </Navbar>
