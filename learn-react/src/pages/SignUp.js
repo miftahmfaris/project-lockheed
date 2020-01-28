@@ -2,46 +2,64 @@ import React, { Component } from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import { withRouter } from "react-router-dom";
 
-class SignIn extends Component {
+class SignUp extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             email: "",
             password: "",
-            isLogin: false
+            name: ""
         };
     }
 
     handleChange = event => {
+        console.log(event.target.name);
+
         this.setState({ [event.target.name]: event.target.value });
+        // this.setState({ name: event.target.value });
+        // this.setState({ email: event.target.value });
+        // this.setState({ password: event.target.value });
     };
 
     handleSubmit = event => {
         event.preventDefault();
+        const { name, email, password } = this.state;
         const user = {
-            email: this.state.email,
-            password: this.state.password
+            name: name,
+            email: email,
+            password: password
         };
 
-        const login = JSON.parse(localStorage.getItem("user"));
-
-        if (login.email === user.email && login.password === user.password) {
-            this.props.history.push("/todolist");
+        if (name !== "" && email !== "" && password !== "") {
+            localStorage.setItem("user", JSON.stringify(user));
+            this.props.history.push("/signin");
+        } else {
+            alert("Your input is still empty");
         }
-
-        localStorage.setItem("user", JSON.stringify(user));
-        localStorage.setItem("status", true);
     };
 
     render() {
-        const { email, password } = this.state;
+        const { name, email, password } = this.state;
 
         return (
             <div>
-                <h1>Login</h1>
+                <h1>Register</h1>
                 <div className="signin-form">
                     <Form onSubmit={this.handleSubmit}>
+                        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                            <Label for="exampleEmail" className="mr-sm-2">
+                                Name
+                            </Label>
+                            <Input
+                                type="text"
+                                name="name"
+                                id="exampleName"
+                                placeholder="Your Name"
+                                onChange={this.handleChange}
+                                value={name}
+                            />
+                        </FormGroup>
                         <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
                             <Label for="exampleEmail" className="mr-sm-2">
                                 Email
@@ -77,4 +95,4 @@ class SignIn extends Component {
     }
 }
 
-export default withRouter(SignIn);
+export default withRouter(SignUp);

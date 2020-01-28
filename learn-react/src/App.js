@@ -14,6 +14,7 @@ import TodoList from "./pages/TodoList";
 import SignIn from "./pages/SignIn";
 
 import "./styles/index.css";
+import SignUp from "./pages/SignUp";
 
 function App() {
     const isLogin = JSON.parse(localStorage.getItem("status"));
@@ -43,6 +44,9 @@ function App() {
                 </Route>
                 <Route path="/signin">
                     <SignIn />
+                </Route>
+                <Route path="/signup">
+                    <SignUp />
                 </Route>
             </Switch>
         </Router>
