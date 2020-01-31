@@ -2,6 +2,7 @@ import React from "react";
 import Counter from "./components/Counter";
 import Square from "./components/Square";
 import SquareRedux from "./components/SquareRedux";
+import Github from "./components/Github";
 
 function App() {
     return (
@@ -9,6 +10,7 @@ function App() {
             <Counter />
             <Square />
             <SquareRedux />
+            <Github />
         </div>
     );
 }
