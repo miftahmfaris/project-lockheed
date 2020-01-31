@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchDataMock, addDataMock } from "../actions/mock";
+import { fetchDataMock, addDataMock, deleteData } from "../actions/mock";
 import { Formik } from "formik";
 
 class Mock extends Component {
@@ -9,11 +9,13 @@ class Mock extends Component {
     };
 
     render() {
+        console.log(this.props);
+
         return (
             <div>
                 <h1>Mock</h1>
                 <Formik
-                    initialValues={{ name: "", city: "", country: "" }}
+                    initialValues={{ name: "miftah", city: "", country: "" }}
                     onSubmit={(values, actions) => {
                         this.props.dispatch(addDataMock(values));
                     }}
@@ -54,6 +56,25 @@ class Mock extends Component {
                         </form>
                     )}
                 </Formik>
+                <ol>
+                    {this.props.mock.data !== undefined &&
+                        this.props.mock.data.map(item => {
+                            return (
+                                <div key={item.id}>
+                                    <li>{item.name}</li>
+                                    <span
+                                        onClick={() =>
+                                            this.props.dispatch(
+                                                deleteData(item.id)
+                                            )
+                                        }
+                                    >
+                                        X
+                                    </span>
+                                </div>
+                            );
+                        })}
+                </ol>
             </div>
         );
     }
@@ -68,7 +89,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         fetchDataMock: () => dispatch(fetchDataMock()),
-        addDataMock: values => dispatch(addDataMock(values)),
+        addData: values => dispatch(addDataMock(values)),
         dispatch
     };
 };

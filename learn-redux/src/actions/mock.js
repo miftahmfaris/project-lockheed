@@ -17,8 +17,14 @@ export const fetchDataMock = () => dispatch => {
     });
 };
 
-export const addDataMock = value => dispatch => {
-    return axios.post(MOCK_API, { value }).then(result => {
+export const addDataMock = ({ name, city, country }) => dispatch => {
+    return axios.post(MOCK_API, { name, city, country }).then(result => {
+        dispatch(fetchDataMock());
+    });
+};
+
+export const deleteData = index => dispatch => {
+    return axios.delete(`${MOCK_API}/${index}`).then(result => {
         dispatch(fetchDataMock());
     });
 };
