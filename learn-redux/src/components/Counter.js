@@ -30,16 +30,17 @@ function Counter(props) {
     );
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = ({ counter }) => {
     return {
-        counter: state.count
+        counter: counter.count
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         addCount: () => dispatch(addCount()),
-        minusCount: () => dispatch(minusCount())
+        minusCount: () => dispatch(minusCount()),
+        dispatch
     };
 };
 
