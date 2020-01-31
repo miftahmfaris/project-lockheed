@@ -18,7 +18,7 @@ class Github extends Component {
 
 const mapStateToProps = state => {
     return {
-        github: state.github
+        github: state.github.data
     };
 };
 

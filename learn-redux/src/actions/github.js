@@ -10,8 +10,9 @@ export const setData = data => {
     };
 };
 
-export const fetchData = () => dispatch => {
-    return axios.get(API_GITHUB).then(result => {
-        dispatch(setData(result.data));
-    });
+export const fetchData = () => async dispatch => {
+    const dataGithub = await axios.get(API_GITHUB);
+    const result = dispatch(setData(dataGithub.data));
+
+    return result;
 };
