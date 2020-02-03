@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 const GITHUB_URL = process.env.REACT_APP_API_URL;
 
@@ -7,12 +8,12 @@ export default class Fetch extends Component {
         super(props);
 
         this.state = {
-            data: {}
+            data: []
         };
     }
 
     componentDidMount = () => {
-        fetch(GITHUB_URL)
+        fetch("https://api.github.com/users")
             .then(response => {
                 return response.json();
             })
@@ -22,10 +23,16 @@ export default class Fetch extends Component {
     };
 
     render() {
-        const { data } = this.state;
         return (
             <div>
-                <h1>{data.login}</h1>
+                {this.state.data.map((item, index) => {
+                    return (
+                        <React.Fragment key={index}>
+                            <h1>{item.login}</h1>
+                            <Link to={`/detailPage/${item.login}`}>Detail</Link>
+                        </React.Fragment>
+                    );
+                })}
             </div>
         );
     }

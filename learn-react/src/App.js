@@ -16,6 +16,7 @@ import SignIn from "./pages/SignIn";
 import "./styles/index.css";
 import SignUp from "./pages/SignUp";
 import Fetch from "./pages/Fetch";
+import DetailPage from "./pages/DetailPage";
 
 function App() {
     const isLogin = JSON.parse(localStorage.getItem("status"));
@@ -51,6 +52,9 @@ function App() {
                 </Route>
                 <Route path="/fetch">
                     <Fetch />
+                </Route>
+                <Route path="/detailPage/:username">
+                    <DetailPage />
                 </Route>
             </Switch>
         </Router>
