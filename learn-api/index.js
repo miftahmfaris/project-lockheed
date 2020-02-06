@@ -14,10 +14,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
-    res.send({ message: "Welcome to my API", data: todos });
+    res.status(200).send({ message: "Welcome to my API", data: todos });
 });
 
-app.get("/hello", (req, res) => {
+app.get("/test", (req, res) => {
+    res.download("/test2.pdf");
     res.send({
         message: "This is hello route"
     });
@@ -36,7 +37,7 @@ app.post("/", (req, res) => {
 
     todos.push({ id: parseInt(id), todo });
 
-    res.send({ message: "Your data is added", data: todos });
+    res.status(201).send({ message: "Your data is added", data: todos });
 });
 
 app.listen(PORT, () => {
