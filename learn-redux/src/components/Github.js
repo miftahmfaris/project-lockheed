@@ -3,26 +3,20 @@ import { connect } from "react-redux";
 import { fetchDataGithub } from "../actions/github";
 
 class Github extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            data: {}
-        };
-    }
-
     componentDidMount = () => {
-        fetch("https://api.github.com/users/miftahmfaris")
-            .then(response => {
-                return response.json();
-            })
-            .then(result => this.setState({ data: result }));
+        this.props.fetchData();
     };
     render() {
         return (
             <div>
                 <h1>Github</h1>
-                <img src={this.state.data.avatar_url} alt="" />
+                <img
+                    src={
+                        this.props.github !== undefined &&
+                        this.props.github.avatar_url
+                    }
+                    alt=""
+                />
             </div>
         );
     }
@@ -38,8 +32,7 @@ const mapDispatchToProps = dispatch => {
     return {
         fetchData: () => {
             dispatch(fetchDataGithub());
-        },
-        dispatch
+        }
     };
 };
 
