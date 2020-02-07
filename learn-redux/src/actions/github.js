@@ -10,9 +10,14 @@ export const setData = data => {
     };
 };
 
-export const fetchData = () => async dispatch => {
-    const dataGithub = await axios.get(API_GITHUB);
-    const result = dispatch(setData(dataGithub.data));
+export const fetchDataGithub = () => dispatch => {
+    console.log("masuk");
 
-    return result;
+    // const dataGithub = await axios.get(API_GITHUB);
+
+    // const result = dispatch(setData(dataGithub.data));
+
+    // console.log(result);
+
+    // return result;
 };

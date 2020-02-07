@@ -4,6 +4,8 @@ import Square from "./components/Square";
 import SquareRedux from "./components/SquareRedux";
 import Github from "./components/Github";
 import Mock from "./components/Mock";
+import FetchOwnApi from "./components/FetchOwnApi";
+import User from "./components/User";
 
 function App() {
     return (
@@ -13,6 +15,8 @@ function App() {
             <SquareRedux />
             <Github />
             <Mock />
+            <FetchOwnApi />
+            <User />
         </div>
     );
 }
