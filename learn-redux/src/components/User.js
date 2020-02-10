@@ -46,7 +46,7 @@ class User extends Component {
                         }
                         return errors;
                     }}
-                    onSubmit={(values, { setSubmitting }) => {
+                    onSubmit={values => {
                         let formData = new FormData();
 
                         for (const key in values) {
