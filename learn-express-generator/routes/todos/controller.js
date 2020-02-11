@@ -4,18 +4,36 @@ const { Todos } = require("../../models");
 module.exports = {
     getAll: async (req, res) => {
         try {
-            const result = await Todos.find({}).populate("user", "userName email");
+            //Async Await Syntax
+            
+            // const result = await Todos.find({}).populate(
+            //     "user",
+            //     "userName email"
+            // );
 
-            res.status(200).send({ message: "Show data todos", data: result });
+            //Promise Syntax
+            Todos.find({})
+                .populate("user")
+                .then(result => {
+                    res.status(200).send({
+                        message: "Show data todos",
+                        data: result
+                    });
+                });
         } catch (error) {
             console.log(error);
         }
     },
     addData: async (req, res) => {
         try {
-            const result = await Todos.create(req.body);
+            //Async Await Syntax
 
-            res.status(200).send({ message: "Add new Todo", data: result });
+            // const result = await Todos.create(req.body);
+
+            //Promise Syntax
+            Todos.create(req.body).then(result => {
+                res.status(200).send({ message: "Add new Todo", data: result });
+            })
         } catch (error) {
             console.log(error);
         }
