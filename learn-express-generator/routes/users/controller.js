@@ -62,7 +62,7 @@ module.exports = {
                 const token = jwt.sign(
                     { email, id, userName, firstName },
                     "INISECRET",
-                    { expiresIn: "30s" }
+                    { expiresIn: "30d" }
                 );
 
                 res.status(200).send({
