@@ -1,5 +1,6 @@
 const { Users } = require("../../models");
 const { hashPassword, comparedPassword } = require("../../helpers");
+const jwt = require("jsonwebtoken");
 
 module.exports = {
     getAll: async (req, res) => {
@@ -56,9 +57,17 @@ module.exports = {
             );
 
             if (compared === true) {
+                const { email, id, userName, firstName } = result;
+
+                const token = jwt.sign(
+                    { email, id, userName, firstName },
+                    "INISECRET",
+                    { expiresIn: "30s" }
+                );
+
                 res.status(200).send({
                     message: "You are successfully logged in",
-                    data: result
+                    token: token
                 });
             } else {
                 res.status(403).send({

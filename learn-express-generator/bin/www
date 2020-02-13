@@ -7,20 +7,7 @@
 var app = require("../app");
 var debug = require("debug")("learn-express-generator:server");
 var http = require("http");
-const mongoose = require("mongoose");
-const { PORT } = require("../config");
-
-mongoose
-    .connect("mongodb://localhost/todos", {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    })
-    .then(() => {
-        console.log("Connected to mongo database");
-    })
-    .catch(error => {
-        console.log("There is something wrong", error);
-    });
+const { PORT, db } = require("../config");
 
 /**
  * Get port from environment and store in Express.
@@ -39,11 +26,14 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port, () => {
-    console.log(`This APP listen on PORT: ${port}`);
-});
-server.on("error", onError);
-server.on("listening", onListening);
+// Check mongoose connection
+if (db) {
+    server.listen(port, () => {
+        console.log(`This APP listen on PORT: ${port}`);
+    });
+    server.on("error", onError);
+    server.on("listening", onListening);
+}
 
 /**
  * Normalize a port into a number, string, or false.
