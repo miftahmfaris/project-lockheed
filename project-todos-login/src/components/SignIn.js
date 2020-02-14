@@ -14,6 +14,7 @@ import { Link as NavLink } from "react-router-dom";
 import { Formik } from "formik";
 import { login } from "../actions";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 function Copyright() {
     return (
@@ -64,7 +65,7 @@ function SignIn(props) {
                 <Formik
                     initialValues={{ email: "jared", password: "" }}
                     onSubmit={(values, actions) => {
-                        props.login(values);
+                        props.login(values, props.history);
                     }}
                 >
                     {props => (
@@ -136,10 +137,10 @@ function SignIn(props) {
 
 const mapDispatchToProps = dispatch => {
     return {
-        login: values => {
-            dispatch(login(values));
+        login: (values, history) => {
+            dispatch(login(values, history));
         }
     };
 };
 
-export default connect(null, mapDispatchToProps)(SignIn);
+export default withRouter(connect(null, mapDispatchToProps)(SignIn));
