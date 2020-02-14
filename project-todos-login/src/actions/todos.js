@@ -1,6 +1,5 @@
 import axios from "axios";
 
-const token = localStorage.getItem("token");
 export const SET_TODOS = "SET_TODOS";
 
 export const setTodo = payload => {
@@ -10,12 +9,18 @@ export const setTodo = payload => {
     };
 };
 
-export const fetchTodos = () => dispatch => {
-    return axios({
-        method: "GET",
-        url: "http://localhost:3002/todos",
-        headers: { authorization: `Bearer ${token}` }
-    }).then(response => {
-        dispatch(setTodo(response.data.data));
-    });
+export const fetchTodos = () => (dispatch, getState) => {
+    const { users } = getState();
+
+    if (users.isLogin === true) {
+        const token = localStorage.getItem("token");
+
+        return axios({
+            method: "GET",
+            url: "http://localhost:3002/todos",
+            headers: { authorization: `Bearer ${token}` }
+        }).then(response => {
+            dispatch(setTodo(response.data.data));
+        });
+    }
 };
